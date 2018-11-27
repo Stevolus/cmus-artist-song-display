@@ -11,14 +11,33 @@
 #        will show "No artist or song info found"
 
 artist=$(cmus-remote -Q | grep artist | cut -c 11-)
-title=$(cmus-remote -Q | grep title | cut -c 11-)
+song=$(cmus-remote -Q | grep title | cut -c 11-)
+status=$(cmus-remote -Q | grep status | cut -c 8-)
 
 if [ "$artist" == "" ]; then
 
-echo "No Artist or"
-echo "song info found"
-
-else
-echo Artist: $artist
-echo Title: $title
+artist_lcd="No Artist info found"
+else artist_lcd=$artist
 fi
+
+if [ "$song" == "" ]; then
+
+song_lcd="No title info found"
+else song_lcd=$song
+fi
+
+if [ "$status" == "" ] || [ "$status" == "stopped" ]; then
+   echo "Nothing is currently playing."
+   exit
+elif [ "$status" = "playing" ]; then
+   status_lcd="Now playing..."
+
+elif [ "$status" == "paused" ]; then
+   status_lcd="Paused."
+
+fi
+
+echo $status_lcd
+echo Artist: $artist_lcd
+echo Song: $song_lcd
+
