@@ -8,7 +8,7 @@
 #
 # Notes: Requires cmus and cmus-remote. Simply run script while cmus is playing a song. A suggestion
 #        Would be to set a cron job for the script every 5 seconds. Music files which dont have tags 
-#        will show "No artist or song info found"
+#        will show "No artist or song info found"-test
 
 artist=$(cmus-remote -Q | grep artist | cut -c 11-)
 title=$(cmus-remote -Q | grep title | cut -c 11-)
